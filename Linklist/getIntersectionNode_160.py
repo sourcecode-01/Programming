@@ -1,14 +1,30 @@
- def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        head1 = headA
-        head2 = headB
-        while(head1 != head2):
-            if (head1 == None):
-                head1 = headB
-            else:
-                head1 = head1.next
-                
-            if (head2 == None):
-                head2 = headA
-            else:
-                head2 = head2.next
-        return head1.val
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        first_set=set()
+        curr=headA
+        
+        while curr:
+            first_set.add(curr)
+            curr=curr.next
+        
+        curr = headB
+        while curr:
+            if curr in first_set:
+                return curr
+            curr=curr.next
+
+        return None
+  --------------------------------------------------------------------------------------------------------------------
+  def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        l1, l2 = headA, headB
+        
+        while l1 != l2:
+            l1 = l1.next if l1 else headB
+            l2 = l2.next if l2 else headA
+        return l1
